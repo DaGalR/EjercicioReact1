@@ -1,38 +1,52 @@
 import React from "react";
-
-function RenderField({ fieldInfo }) {
-  console.log(fieldInfo);
+import useForm from "../customHooks/useForm";
+import validateForm from "../utils/validateForm";
+function RenderField({ errs, func, fieldInfo }) {
   return (
-    <div>
+    <>
       <label htmlFor={fieldInfo.name}>{fieldInfo.name}:</label>
       <input
+        className="form-control"
         type={fieldInfo.type}
         name={fieldInfo.name}
         placeholder={fieldInfo.placeholder}
+        onChange={func}
         id={fieldInfo.id}
       />
-    </div>
+      {errs[fieldInfo.name] && <p>{errs[fieldInfo.name]}</p>}
+    </>
   );
 }
-const handleSumbit = (evt) => {
-  evt.preventDefault();
-  console.log("Sumbited");
-};
+
 function Form(props) {
+  const { handleChange, handleSubmit, errors } = useForm(
+    validateForm,
+    props.campos
+  );
   const fields = props.campos.map((fieldInfo) => {
     return (
-      <div key={fieldInfo.id}>
-        <RenderField fieldInfo={fieldInfo} />
+      <div className="form-group" key={fieldInfo.id}>
+        <RenderField errs={errors} func={handleChange} fieldInfo={fieldInfo} />
       </div>
     );
   });
   return (
-    <div>
-      <h1>Sample Form</h1>
-      <form onSubmit={handleSumbit}>
-        {fields}
-        <button type="submit">Sumbit</button>
-      </form>
+    <div className="container">
+      <div className="row">
+        <div className="col-12">
+          <h1>Sample Form</h1>
+        </div>
+      </div>
+      <div className="row" id="formulario">
+        <div className="col-12">
+          <form onSubmit={handleSubmit}>
+            {fields}
+            <button type="submit" className="btn btn-primary">
+              Sumbit
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

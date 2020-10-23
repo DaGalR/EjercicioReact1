@@ -12,5 +12,19 @@ code {
     monospace;
 }
 input[type="text"]:focus {
-  border: 3px solid #555;
+  border: 2px solid #555;
+  background-color: lightgreen;
+}
+input[type="email"]:focus {
+  border: 2px solid #555;
+  background-color: lightgreen;
+}
+input[type="password"]:focus {
+  background-color: lightblue;
+}
+h1 {
+  text-align: center;
+}
+p {
+  color: red;
 }

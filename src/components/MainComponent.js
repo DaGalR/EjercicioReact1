@@ -23,13 +23,11 @@ function Main() {
       placeholder: "Your telephone number",
     },
   ]);
-  const validateForm = () => {
-    console.log("validate");
-  };
+
   const renderForm = () => {
     return (
       <>
-        <Form validate={validateForm} campos={campos} />
+        <Form campos={campos} />
       </>
     );
   };
